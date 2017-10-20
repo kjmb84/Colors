@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ColorsViewController: UIViewController {
-
+class ColorsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var colors = ["red": UIColor.red, "orange": UIColor.orange, "yellow": UIColor.yellow, "green": UIColor.green, "blue": UIColor.blue, "purple": UIColor.purple, "brown": UIColor.brown]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +22,22 @@ class ColorsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return colors.count
+    }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "colorCell", for: indexPath)
+        let color = Array(colors)[indexPath.row]
+        cell.textLabel?.text = color.key
+        cell.backgroundColor = color.value
+        
+        return cell
+    }
     /*
     // MARK: - Navigation
 
